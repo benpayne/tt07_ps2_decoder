@@ -32,12 +32,16 @@ async def send_bits(ps2_clk, ps2_data, value, bit_count=8, parity_valid=True, st
 async def ps2_decode_test(dut):
     """Test getting one byte from keyboard."""
 
+    dut.rst_n.value = 0
+    await Timer(1, units="us")
+    dut.rst_n.value = 1
+
     #cocotb.start_saving_waves()
     cocotb.start_soon(Clock(dut.clk, 40, units="ns").start())
 
     dut.ps2_clk.value = 1
     dut.ps2_data.value = 1
-
+    
     await Timer(1, units="us")
 
     cocotb.start_soon(send_bits(dut.ps2_clk, dut.ps2_data, 0xC2))
