@@ -23,6 +23,14 @@ module tb ();
   wire [7:0] uio_out;
   wire [7:0] uio_oe;
 
+  wire ps2_clk;
+  wire ps2_data;
+  wire valid;
+
+  assign ui_in[0] = ps2_clk;
+  assign ui_in[1] = ps2_data;
+  assign valid = uio_out[0];
+
   // Replace tt_um_example with your module name:
   tt_um_example user_project (
 
