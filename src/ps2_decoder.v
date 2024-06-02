@@ -11,7 +11,7 @@ module ps2_decoder (
 
     localparam SYSTEM_CLOCK = 25_000_000;
     localparam PS2_CLOCK = 10_000;
-    localparam PS2_BIT_TIME = SYSTEM_CLOCK / PS2_CLOCK;
+    localparam [12:0] PS2_BIT_TIME = SYSTEM_CLOCK / PS2_CLOCK;
 
     localparam IDLE = 0, SETUP = 1, HOLD = 2, CLEAR = 3;
 
@@ -26,7 +26,7 @@ module ps2_decoder (
     assign valid = valid_reg;
 
     always @(negedge ps2_clk) begin
-        shift_reg <= {shift_reg[10:0], ps2_data};
+        shift_reg <= {shift_reg[9:0], ps2_data};
     end
 
     always @(posedge clk ) begin
